@@ -2,6 +2,7 @@ import React from 'react';
 import '../css/landing.css';
 import '../css/bootstrap.css';
 import '../css/bootstrap-grid.css';
+import axios from 'axios';
 
 
 const Home = () => (
@@ -126,7 +127,7 @@ const Home = () => (
                         <h4>Siddharth Dhar</h4>
                     </div>
                     <div className="col-sm">
-                        <img id="teamimg" src= {require("../res/sri.JPG")}></img>
+                        <img id="teamimg" src= {require("../res/sri.jpg")}></img>
                         <h4>Sripath Mishra</h4>
                     </div>
                     <div className="col-sm">
@@ -185,9 +186,9 @@ const Home = () => (
 function enter() {
     let data = {};
     data.text = document.getElementById("exampleFormControlTextarea1").value;
-    
+
     let url = 'https://fiesta.herokuapp.com/user/feedback';
-    
+
     axios({
         method: 'post',
         url: url,
