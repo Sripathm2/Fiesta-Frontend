@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import '../css/dashboard.css'
 import Modal from 'react-awesome-modal';
+import Calendar from 'react-calendar/dist/entry.nostyle';
 
 export default class Dashboard extends Component {
     constructor(props) {
@@ -8,7 +9,14 @@ export default class Dashboard extends Component {
         this.state = {
             visible : false
         }
+
+        this.state = {
+            date: new Date(),
+        }
     }
+
+    onChange = date => this.setState({ date });
+
 
     openModal() {
         this.setState({
@@ -43,6 +51,15 @@ export default class Dashboard extends Component {
               </div>
                 <div className="col-sm-8 col-md-8 col-lg-8">
                     <button id = "addeventbtn" type="button" class="addeventbtn btn btn-secondary btn-lg">Add Event +</button>
+                </div>
+            </div>
+            <div class = "row">
+                <div class = "col-2"></div>
+                <div className = "col-sm-8 col-lg-8 col-md-8">
+                    <br></br>
+                    <hr></hr>
+                    <Calendar onChange={this.onChange}
+                    value={this.state.date}/>
                 </div>
             </div>
         </div>
