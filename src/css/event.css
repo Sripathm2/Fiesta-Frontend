@@ -23,6 +23,9 @@
 #eventtasklistnav{
     height:100px;
 }
+#eventpicsnav{
+    height:100px;
+}
 #eventinfo{
     margin-top: 10%;
     height:90%;
@@ -71,6 +74,16 @@
     width: 98%;
 }
 #eventasklist{
+    margin-top: 2%;
+    height:90%;
+    padding: 2%;
+    background-color: rgba(255,255,255,0.5);
+    margin-left:1%;
+    border-radius: 20px;
+    width: 98%;
+    margin-bottom: 2%;
+}
+#eventpics{
     margin-top: 2%;
     height:90%;
     padding: 2%;

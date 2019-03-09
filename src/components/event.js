@@ -125,7 +125,18 @@ export default class event extends React.Component {
                         <input class="form-control" type="time" id="example-time-input"></input>
                     </div>
                 </div>
+                <br></br>
+                <h5>Want to relive your memories? Just put the Google Drive link to all your event pictures below! </h5>
+                <br></br>
+                <div class="form-group row">
+                    <div class="col-sm-2">
+                        <label for="exampleFormControlInput1">Google Drive Link:</label>
+                    </div>
 
+                    <div class="col-sm-10">
+                        <input type="" class="form-control" id="exampleFormControlInput1" ></input>
+                    </div>
+                </div>
                 </form>
                 </div>
             </div>
@@ -203,12 +214,14 @@ export default class event extends React.Component {
                 <div id="eventtasklistnav"></div>
                 <h3>Event Tasklist</h3>
                 <hr></hr>
+                <h5>Need hosting supply suggestions? <a href="https://www.partycity.com/"target="_blank">Go here!</a></h5>
                 <div class="row-10">
-
+                                
                 </div>
-
+                
             </div>
         </div>
+        
         <input class="btn btn-success btn-lg" type="submit" value="Save All Changes"></input>
 
         <footer id="footer"className="footer">
@@ -222,6 +235,15 @@ export default class event extends React.Component {
 
         );
     }
+    state = { selectedFile: null }
+
+        fileChangedHandler = event => {
+        this.setState({ selectedFile: event.target.files[0] })
+        }
+
+        uploadHandler = () => {
+        console.log(this.state.selectedFile)
+        }
     handleClick(event){
         eval(this[event.target.name]).bind(this)(event)
       }
@@ -233,7 +255,7 @@ export default class event extends React.Component {
       }
       handleSubmit(event){
         event.preventDefault()
-        eval(this[event.target.name]).bind(this)(event)
+        //eval(this[event.target.name]).bind(this)(event)
       }
       task(event) {
         this.setState({task:event.target.value})
