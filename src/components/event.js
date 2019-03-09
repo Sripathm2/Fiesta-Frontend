@@ -16,6 +16,7 @@ export default class event extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.addwhislist = this.addwhislist.bind(this);
+        this.assigntasklist = this.assigntasklist.bind(this);
     }
     openModal() {
         this.setState({
@@ -228,10 +229,26 @@ export default class event extends React.Component {
                 <div id="eventtasklistnav"></div>
                 <h3>Event Tasklist</h3>
                 <hr></hr>
-                <h5>Need hosting supply suggestions? <a href="https://www.partycity.com/"target="_blank">Go here!</a></h5>
                 <div class="row-10">
-                                
+
+                    <form id="assigntasklistform">
+                    <ol id="assigntasklist"></ol>
+                    <div class="input-group">
+                        <div class = "col-lg-4"></div>
+                        <div class = "col-lg-4">
+                        <input type="text" placeholder="Task Name - Task Owner" class="form-control" id ="assigntaskbox"/>
+                        
+                        </div>
+
+                        <div>
+                        <button id = "btnsubmit" value="Submit"class="btn btn-warning" type="button" onClick={this.assigntasklist}>Submit</button>
+                        </div>
+                    </div>
+                    </form>
                 </div>
+                <br></br>
+                <h5>Need hosting supply suggestions? <a href="https://www.partycity.com/"target="_blank">Go here!</a></h5>
+                
                 
             </div>
         </div>
@@ -289,6 +306,15 @@ export default class event extends React.Component {
         let input = baseUrl + item.replace(/[^A-Z0-9]+/ig, "+");
         entry.onclick = ()=>{window.open(input,'_blank');console.log("sdsdgf");};
         list.appendChild(entry);
+      }
+
+      assigntasklist(){
+        let item1 = document.getElementById("assigntaskbox").value;
+        let list1 = document.getElementById("assigntasklist");
+        let entry1 = document.createElement('li');
+        entry1.innerText = item1;
+        list1.appendChild(entry1);
+        
       }
 }
 
