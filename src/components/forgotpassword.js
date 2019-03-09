@@ -21,16 +21,16 @@ const forgotpassword = () => (
             <form>
             
             <div class="form-group">
-                <input type="text" class="form-control _input _input-5" id="formGroupExampleInput Q" placeholder="Enter Security Question"></input>
+                <input type="text" class="form-control _input _input-5" id="Q" placeholder="Enter Security Question"></input>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control _input _input-7" id="formGroupExampleInput2 A" placeholder="Answer"></input>
+                <input type="text" class="form-control _input _input-7" id="A" placeholder="Answer"></input>
             </div>
             <div class="form-group">
-                <input type="password" class="form-control _input _input-10" id="formGroupExampleInput2 password" placeholder="New Password"></input>
+                <input type="password" class="form-control _input _input-10" id="password" placeholder="New Password"></input>
             </div>
             <div class="form-group">
-                <input type="password" class="form-control _input _input-14" id="formGroupExampleInput2 repass" placeholder="Re-Enter New Password"></input>
+                <input type="password" class="form-control _input _input-14" id="repass" placeholder="Re-Enter New Password"></input>
             </div>
             <div class="form-row">
                 <div class="col">
@@ -64,7 +64,7 @@ function reset(){
     data.password = document.getElementById("password").value;
     data.repass = document.getElementById("repass").value;
 
-    let url='https://fiesta.herokuapp.com/user/forgetPassword';
+    let url='https://fiesta-api.herokuapp.com/user/forgetPassword';
 
     axios({
         method: 'post',
@@ -89,7 +89,7 @@ function load(){
     let user;
     user = readCookie();
 
-    let url='https://fiesta.herokuapp.com/user/forgetPassword?userName='+user;
+    let url='https://fiesta-api.herokuapp.com/user/forgetPassword?userName='+user;
 
     axios({
         method: 'get',

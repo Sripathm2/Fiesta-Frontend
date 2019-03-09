@@ -9,10 +9,13 @@ export default class event extends React.Component {
             count: 0,
             tasks: ['example@gmail.com']
         }
+        this.state = {value: 'Suggest'};
+
         this.handleClick = this.handleClick.bind(this);
         this.handleClickIndex = this.handleClickIndex.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.addwhislist = this.addwhislist.bind(this);
     }
     openModal() {
         this.setState({
@@ -26,6 +29,7 @@ export default class event extends React.Component {
         });
     }
 
+
     render() {
         const tasks = (this.state.tasks||[]).map((task,index)=>(
             <li id = "guestemails">
@@ -37,7 +41,7 @@ export default class event extends React.Component {
 
 
         <nav id = "navevent" className="navbar fixed-top navbar-expand-lg navbar-light bg-light">
-      
+
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
@@ -151,7 +155,7 @@ export default class event extends React.Component {
 
                 <h4>Need suggestions?</h4>
                 </div>
-
+                <div className="row" id="map"></div>
             </div>
         </div>
 
@@ -161,9 +165,9 @@ export default class event extends React.Component {
                 <h3>Event Catering</h3>
                 <hr></hr>
                 <div class="row-10">
-                <h4>Need suggestions?</h4>
+                    <h5>Need Suggestion?<a href="https://www.ezcater.com/" target="_blank"> Click here</a></h5>
+                    <p></p>
                 </div>
-
             </div>
         </div>
 
@@ -202,9 +206,19 @@ export default class event extends React.Component {
             <div className="container">
                 <div id="eventwishlistnav"></div>
                 <h3>Event Wishlist</h3>
-                <hr></hr>
                 <div class="row-10">
+                    <ol id ="wishlistList"></ol>
+                    <hr></hr>
+                    <div class="input-group">
+                        <div class = "col-lg-4"></div>
+                        <div class = "col-lg-4">
+                        <input type="text" class="form-control" id ="wishlistBox"/>
+                        </div>
 
+                        <div>
+                             <button class="btn btn-warning" type="button" onClick={this.addwhislist}>Submit</button>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -251,7 +265,9 @@ export default class event extends React.Component {
         eval(this[event.target.name]).bind(this)(index, event)
       }
       handleChange(event){
-        eval(this[event.target.name]).bind(this)(event)
+          this.setState({value: event.target.value});
+        //eval(this[event.target.name]).bind(this)(event)
+
       }
       handleSubmit(event){
         event.preventDefault()
@@ -271,6 +287,16 @@ export default class event extends React.Component {
         tasks.splice(index, 1)
 
         this.setState({tasks})
+      }
+      addwhislist(){
+        let item = document.getElementById("wishlistBox").value;
+        let list = document.getElementById("wishlistList");
+        let entry = document.createElement('li');
+        entry.innerText = item;
+        let baseUrl = 'https://www.amazon.com/s?k=';
+        let input = baseUrl + item.replace(/[^A-Z0-9]+/ig, "+");
+        entry.onclick = ()=>{window.open(input,'_blank');console.log("sdsdgf");};
+        list.appendChild(entry);
       }
 }
 

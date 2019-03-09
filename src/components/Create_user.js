@@ -68,7 +68,7 @@ function signUp() {
     userdata.lname = document.getElementById("lastName").value;
     axios({
         method:'post',
-        url:'https://carnet-api.herokuapp.com/user/register',
+        url:'https://fiesta-api.herokuapp.com/user/register',
         data:{
             userName:userdata.userName,
             password:userdata.password,

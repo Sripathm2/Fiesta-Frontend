@@ -24,11 +24,11 @@ const login = () => (
             <form>
 
                     <div class = "form-group">
-                            <input type="text" class="form-control _input _input-13" id ="formGroupExampleInput username" placeholder="Username"/>
+                            <input type="text" class="form-control _input _input-13" id ="username" placeholder="Username"/>
                     </div>
 
                     <div class = "form-group">
-                            <input type="password" class="form-control _input _input-16" id ="formGroupExampleInput username" placeholder="Password"/>
+                            <input type="password" class="form-control _input _input-16" id ="password" placeholder="Password"/>
                     </div>
 
                     <div class = "form-row">
@@ -56,7 +56,7 @@ function forgotPassword(){
         return;
     }
 
-    let url='https://fiesta.herokuapp.com/user/forgetPassword?userName='+userdata.userName;
+    let url='https://fiesta-api.herokuapp.com/user/forgetPassword?userName='+userdata.userName;
 
     axios({
         method:'get',
@@ -77,7 +77,7 @@ function enter(){
     userdata.userName = document.getElementById("username").value;
     userdata.password = document.getElementById("password").value;
 
-    let url='https://fiesta.herokuapp.com/auth/token?userName='+userdata.userName+'&password='+userdata.password;
+    let url='https://fiesta-api.herokuapp.com/auth/token?userName='+userdata.userName+'&password='+userdata.password;
 
     axios({
         method:'get',
