@@ -1,0 +1,108 @@
+body {
+  background-color: rgb(255, 255, 255);
+  font: 400 1em/1.38 Helvetica;
+  color: rgb(0, 0, 0);
+}
+
+.container {
+  position: relative;
+  float: left;
+  clear: both;
+  z-index: 5;
+  width: 54.4%;
+  height: 403px;
+  margin: 36px 0 0 16%;
+}
+
+.element {
+  position: relative;
+  float: left;
+  z-index: 0;
+  width: 34%;
+  height: 32px;
+  margin: 40px 0 0 26.13021%;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 12px;
+  background-color: rgb(222, 222, 222);
+}
+
+.text {
+  position: relative;
+  float: left;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 12px;
+  font-size: 1em;
+  color: rgb(0, 0, 0);
+}
+
+._button {
+  display: block;
+  float: left;
+  background-color: rgb(222, 222, 222);
+  font-size: 1em;
+  text-align: center;
+  color: rgb(0, 0, 0);
+}
+
+.text-1 {
+  clear: both;
+  z-index: 6;
+  width: 40.7989583333%;
+  min-height: 43px;
+  margin: -374px 0 0 22.7994791666%;
+}
+
+.text-2 {
+  z-index: 7;
+  width: 33.2%;
+  min-height: 108px;
+  margin: -308px 0 0 29.5989583333%;
+}
+
+._button-1 {
+  width: 54.4%;
+  height: 41px;
+  margin: 36px 0 0 16%;
+  border-radius: 9px;
+}
+
+._button-2 {
+  position: relative;
+  clear: both;
+  z-index: 8;
+  width: 5.5013020833%;
+  height: 20px;
+  margin: -26px 0 0 53.58203125%;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 12px;
+}
+
+._button-3 {
+  position: relative;
+  z-index: 3;
+  width: 6.8%;
+  height: 32px;
+  margin: 407px 0 0 16%;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 12px;
+}
+
+._button-4 {
+  position: relative;
+  z-index: 1;
+  width: 6%;
+  height: 21px;
+  margin: 412px 0 0 30.78255%;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 12px;
+}
+
+._button-5 {
+  position: relative;
+  z-index: 4;
+  width: 6.8%;
+  height: 32px;
+  margin: 407px 0 0 4.01693%;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 12px;
+}
