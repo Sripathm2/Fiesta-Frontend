@@ -277,7 +277,7 @@ export default class event extends React.Component {
       }
       removeTask(index, event) {
         const tasks = this.state.tasks
-        tasks.splice(index, 1)
+        tasks.splice(index, 1);
 
         this.setState({tasks})
       }
