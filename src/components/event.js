@@ -249,15 +249,7 @@ export default class event extends React.Component {
 
         );
     }
-    state = { selectedFile: null }
-
-        fileChangedHandler = event => {
-        this.setState({ selectedFile: event.target.files[0] })
-        }
-
-        uploadHandler = () => {
-        console.log(this.state.selectedFile)
-        }
+    
     handleClick(event){
         eval(this[event.target.name]).bind(this)(event)
       }
@@ -266,12 +258,12 @@ export default class event extends React.Component {
       }
       handleChange(event){
           this.setState({value: event.target.value});
-        //eval(this[event.target.name]).bind(this)(event)
+        eval(this[event.target.name]).bind(this)(event)
 
       }
       handleSubmit(event){
         event.preventDefault()
-        //eval(this[event.target.name]).bind(this)(event)
+       // eval(this[event.target.name]).bind(this)(event)
       }
       task(event) {
         this.setState({task:event.target.value})
