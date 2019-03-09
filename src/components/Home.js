@@ -31,10 +31,10 @@ const Home = () => (
             </div>
             <ul className="nav justify-content-end">
                 <li className="nav-item">
-                    <a className="nav-link" href="#">Sign Up</a>
+                    <a className="nav-link" href="/create_user">Sign Up</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" href="#">Login</a>
+                    <a className="nav-link" href="/login">Login</a>
                 </li>
 
             </ul>
@@ -187,7 +187,7 @@ function enter() {
     let data = {};
     data.text = document.getElementById("exampleFormControlTextarea1").value;
 
-    let url = 'https://fiesta.herokuapp.com/user/feedback';
+    let url = 'https://fiesta-api.herokuapp.com/feedback';
 
     axios({
         method: 'post',
