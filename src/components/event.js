@@ -1,6 +1,5 @@
-import React, {Component} from 'react';
+import React from 'react';
 import '../css/event.css'
-import Modal from 'react-awesome-modal';
 export default class event extends React.Component {
     constructor(props) {
         super(props)
@@ -73,10 +72,10 @@ export default class event extends React.Component {
             </div>
             <ul className="nav justify-content-end">
                 <li className="nav-item">
-                    <a className="nav-link" href="#">Dashboard</a>
+                    <a className="nav-link" href="/Dashboard">Dashboard</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" href="#">Logout</a>
+                    <a className="nav-link" href="/Home">Logout</a>
                 </li>
 
             </ul>
@@ -237,7 +236,7 @@ export default class event extends React.Component {
                         <div class = "col-lg-4"></div>
                         <div class = "col-lg-4">
                         <input type="text" placeholder="Task Name - Task Owner" class="form-control" id ="assigntaskbox"/>
-                        
+
                         </div>
 
                         <div>
@@ -248,11 +247,11 @@ export default class event extends React.Component {
                 </div>
                 <br></br>
                 <h5>Need hosting supply suggestions? <a href="https://www.partycity.com/"target="_blank">Go here!</a></h5>
-                
-                
+
+
             </div>
         </div>
-        
+
         <input class="btn btn-success btn-lg" type="submit" value="Save All Changes"></input>
 
         <footer id="footer"className="footer">
@@ -266,16 +265,16 @@ export default class event extends React.Component {
 
         );
     }
-    
+
     handleClick(event){
-        eval(this[event.target.name]).bind(this)(event)
+        //eval(this[event.target.name]).bind(this)(event)
       }
       handleClickIndex(index, event){
-        eval(this[event.target.name]).bind(this)(index, event)
+        //eval(this[event.target.name]).bind(this)(index, event)
       }
       handleChange(event){
           this.setState({value: event.target.value});
-        eval(this[event.target.name]).bind(this)(event)
+        //eval(this[event.target.name]).bind(this)(event)
 
       }
       handleSubmit(event){
@@ -314,7 +313,7 @@ export default class event extends React.Component {
         let entry1 = document.createElement('li');
         entry1.innerText = item1;
         list1.appendChild(entry1);
-        
+
       }
 }
 

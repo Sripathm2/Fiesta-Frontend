@@ -83,7 +83,7 @@ export default class Dashboard extends Component {
                                 </div>
                             </div>
                             </form>
-                        <a href="javascript:void(0);" class="btn btn-outline-success" onClick={() => this.closeModal()}>Save</a>
+                        <button class="btn btn-outline-success" onClick={() => this.closeModal()}>Save</button>
                     </div>
                 </Modal>
             </section>
