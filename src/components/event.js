@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import '../css/event.css'
 import Modal from 'react-awesome-modal';
+
 export default class event extends React.Component {
     constructor(props) {
         super(props)
@@ -9,7 +10,6 @@ export default class event extends React.Component {
             count: 0,
             tasks: ['example@gmail.com']
         }
-        this.state = {value: 'Suggest'};
 
         this.handleClick = this.handleClick.bind(this);
         this.handleClickIndex = this.handleClickIndex.bind(this);
@@ -17,6 +17,8 @@ export default class event extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.addwhislist = this.addwhislist.bind(this);
         this.getlocation = this.getlocation.bind(this);
+        this.doneWishList = this.getlocation.bind(this);
+
     }
     openModal() {
         this.setState({
@@ -284,12 +286,32 @@ export default class event extends React.Component {
       addwhislist(){
         let item = document.getElementById("wishlistBox").value;
         let list = document.getElementById("wishlistList");
+        let div = document.createElement('div');
+        div.id = 'wishListDiv';
+        let br = document.createElement('br');
+        let d1 = document.createElement('div');
+        d1.id = 'WishListItem';
+        let d2 = document.createElement('div');
+        d1.id = 'WishListButton';
+        div.setAttribute('class' ,'row');
+        d1.setAttribute('class' , 'col-lg-6');
+        d2.setAttribute('class', 'col-lg-6');
+        let b = document.createElement('button');
+        b.innerText = "Done";
+        b.setAttribute('class', 'btn btn-warning');
+        b.setAttribute('type' , 'button');
+        b.setAttribute('onClick', '{this.doneWishList(this.id)}');
         let entry = document.createElement('li');
         entry.innerText = item;
         let baseUrl = 'https://www.amazon.com/s?k=';
         let input = baseUrl + item.replace(/[^A-Z0-9]+/ig, "+");
         entry.onclick = ()=>{window.open(input,'_blank');};
-        list.appendChild(entry);
+        d1.appendChild(entry);
+        d2.appendChild(b);
+        div.appendChild(d1);
+        div.appendChild(d2);
+        list.appendChild(div);
+        list.appendChild(br);
       }
       getlocation(){
         let loco = document.getElementById("give").value;
@@ -305,6 +327,10 @@ export default class event extends React.Component {
         l.appendChild(p);
         l.appendChild(br);
         l.appendChild(entry);
+      }
+
+      doneWishList(buttonId){
+        alert(buttonId);
       }
 }
 
