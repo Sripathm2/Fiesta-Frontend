@@ -2,6 +2,8 @@ import React from 'react';
 import '../css/event.css';
 import axios from 'axios';
 
+let globalctr =0;
+
 export default class event extends React.Component {
     constructor(props) {
         super(props)
@@ -302,10 +304,15 @@ export default class event extends React.Component {
         let item = document.getElementById("wishlistBox").value;
         let list = document.getElementById("wishlistList");
         let entry = document.createElement('li');
+        entry.id = globalctr;
+
         entry.innerText = item;
         let baseUrl = 'https://www.amazon.com/s?k=';
         let input = baseUrl + item.replace(/[^A-Z0-9]+/ig, "+");
         entry.onclick = ()=>{window.open(input,'_blank');console.log("sdsdgf");};
+
+        // create a button and add it to entry and in onlcick of this button pass globalctr and in that use this id to strike off. 
+        globalctr += 1
         list.appendChild(entry);
     }
 
