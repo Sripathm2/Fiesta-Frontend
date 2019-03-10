@@ -173,7 +173,7 @@ export default class event extends React.Component {
                             <h5>Need Suggestions?</h5>
                             <input id="suggest" className="form-control" id="place_location"></input>
                             <br></br>
-                            <button className="btn btn-warning" type="submit" onClick={this.getPlace}>Submit</button>
+                            <button className="btn btn-warning" type="submit" onClick={()=>{window.open('https://eventup.com/','_blank');}}>Submit</button>
                         </form>
                     </div>
                 </div>
