@@ -155,10 +155,25 @@ export default class event extends React.Component {
             <div className="container">
                 <div id="eventvenuenav"></div>
                 <h3>Event Venue</h3>
-                <hr></hr>
-                <div className="row-10">
-
-                <h4>Need suggestions?</h4>
+                    <div class="row">
+                    <div class = "col-lg-6 form-group" id ="giveloco">
+                        <form>
+                            <h5>Give a Location</h5>
+                            <input id="give" class="form-control"></input>
+                            <br></br>
+                            <button class = "btn btn-warning" type = "button" onClick={this.getlocation}>Submit</button>
+                            <br></br>
+                        </form>
+                    </div>
+                    <div class = " vl col-lg-1"></div>
+                    <div class ="col-lg-5 form-group">
+                        <form>
+                            <h5>Need Suggestions?</h5>
+                            <input id="suggest" className="form-control"></input>
+                            <br></br>
+                            <button className="btn btn-warning" type="submit">Submit</button>
+                        </form>
+                    </div>
                 </div>
                 <div className="row" id="map"></div>
             </div>
@@ -296,25 +311,58 @@ export default class event extends React.Component {
     }
     removeTask(index, event) {
         const tasks = this.state.tasks
-        tasks.splice(index, 1)
+        tasks.splice(index, 1);
 
         this.setState({tasks})
     }
     addwhislist(){
         let item = document.getElementById("wishlistBox").value;
         let list = document.getElementById("wishlistList");
+        let div = document.createElement('div');
+        div.id = 'wishListDiv';
+        let br = document.createElement('br');
+        let d1 = document.createElement('div');
+        d1.id = 'WishListItem';
+        let d2 = document.createElement('div');
+        d1.id = 'WishListButton';
+        div.setAttribute('class' ,'row');
+        d1.setAttribute('class' , 'col-lg-6');
+        d2.setAttribute('class', 'col-lg-6');
+        let b = document.createElement('button');
+        b.innerText = "Done";
+        b.setAttribute('class', 'btn btn-warning');
+        b.setAttribute('type' , 'button');
+        b.setAttribute('onClick', '{this.doneWishList(this.id)}');
         let entry = document.createElement('li');
-        entry.id = globalctr;
-
         entry.innerText = item;
+        entry.id = globalctr;
+        // make button and all.
         let baseUrl = 'https://www.amazon.com/s?k=';
         let input = baseUrl + item.replace(/[^A-Z0-9]+/ig, "+");
-        entry.onclick = ()=>{window.open(input,'_blank');console.log("sdsdgf");};
-
-        // create a button and add it to entry and in onlcick of this button pass globalctr and in that use this id to strike off. 
-        globalctr += 1
-        list.appendChild(entry);
+        entry.onclick = ()=>{window.open(input,'_blank')};
+        d1.appendChild(entry);
+        d2.appendChild(b);
+        div.appendChild(d1);
+        div.appendChild(d2);
+        list.appendChild(div);
+        list.appendChild(br);
     }
+
+    getlocation(){
+        let loco = document.getElementById("give").value;
+        let url = "https://www.google.com/maps/dir/?api=1&destination="+loco;
+        let br = document.createElement('br');
+        let p = document.createElement('p');
+        p.innerText = 'The location is '+loco;
+        let entry = document.createElement('a');
+        entry.setAttribute('href', url);
+        entry.innerText = 'Click here for direction';
+        entry.setAttribute('target' , '_blank');
+        let l = document.getElementById("giveloco");
+        l.appendChild(p);
+        l.appendChild(br);
+        l.appendChild(entry);
+      }
 
     assigntasklist(){
         let item1 = document.getElementById("assigntaskbox").value;
@@ -323,6 +371,10 @@ export default class event extends React.Component {
         entry1.innerText = item1;
         list1.appendChild(entry1);
     }
+
+    doneWishList(buttonId){
+        alert(buttonId);
+      }
 
 
     submitall(){
