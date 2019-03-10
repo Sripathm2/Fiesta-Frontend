@@ -12,12 +12,8 @@ export default class event extends React.Component {
             count: 0,
             tasks: ['example@gmail.com']
         }
-<<<<<<< HEAD
         this.state = {value: 'Suggest'};
         this.getPlace = this.getPlace.bind(this);
-=======
-
->>>>>>> a8d7a1d6ca391f05f1fd9e417590895aae346fa6
         this.handleClick = this.handleClick.bind(this);
         this.handleClickIndex = this.handleClickIndex.bind(this);
         this.handleChange = this.handleChange.bind(this);
