@@ -137,3 +137,8 @@
     height: 400px;
     background-color: grey;
 }
+
+.vl {
+    border-left: 2px solid black;
+    height: 200px;
+}
