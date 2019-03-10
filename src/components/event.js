@@ -12,13 +12,14 @@ export default class event extends React.Component {
             count: 0,
             tasks: ['example@gmail.com']
         }
-        this.state = {value: 'Suggest'};
 
         this.handleClick = this.handleClick.bind(this);
         this.handleClickIndex = this.handleClickIndex.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.addwhislist = this.addwhislist.bind(this);
+        this.getlocation = this.getlocation.bind(this);
+        this.doneWishList = this.doneWishList.bind(this);
         this.assigntasklist = this.assigntasklist.bind(this);
         this.submitall = this.submitall.bind(this);
     }
@@ -159,7 +160,7 @@ export default class event extends React.Component {
                     <div class = "col-lg-6 form-group" id ="giveloco">
                         <form>
                             <h5>Give a Location</h5>
-                            <input id="give" class="form-control"></input>
+                            <input id="give" class="form-control" placeholder="Address"></input>
                             <br></br>
                             <button class = "btn btn-warning" type = "button" onClick={this.getlocation}>Submit</button>
                             <br></br>
@@ -169,13 +170,12 @@ export default class event extends React.Component {
                     <div class ="col-lg-5 form-group">
                         <form>
                             <h5>Need Suggestions?</h5>
-                            <input id="suggest" className="form-control"></input>
+                            <input id="suggest" className="form-control" placeholder="Zipcode"></input>
                             <br></br>
-                            <button className="btn btn-warning" type="submit">Submit</button>
+                            <button className="btn btn-warning" type="button">Submit</button>
                         </form>
                     </div>
                 </div>
-                <div className="row" id="map"></div>
             </div>
         </div>
 
@@ -186,7 +186,14 @@ export default class event extends React.Component {
                 <hr></hr>
                 <div className="row-10">
                     <h5>Need Suggestion?<a href="https://www.ezcater.com/" target="_blank"> Click here</a></h5>
-                    <p></p>
+                    <form>
+                        <div className="form-group">
+                            <input className="form-control" placeholder="Final Catering Option"></input>
+                            <br></br>
+                            <button className="btn btn-warning" type="button">Submit</button>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </div>
@@ -232,7 +239,7 @@ export default class event extends React.Component {
                     <div className="input-group">
                         <div className = "col-lg-4"></div>
                         <div className = "col-lg-4">
-                        <input type="text" className="form-control" id ="wishlistBox"/>
+                        <input type="text" className="form-control" id ="wishlistBox" placeholder="Item"/>
                         </div>
 
                         <div>
@@ -319,33 +326,34 @@ export default class event extends React.Component {
         let item = document.getElementById("wishlistBox").value;
         let list = document.getElementById("wishlistList");
         let div = document.createElement('div');
-        div.id = 'wishListDiv';
+        div.id = 'wishListDiv '+globalctr;
         let br = document.createElement('br');
         let d1 = document.createElement('div');
-        d1.id = 'WishListItem';
+        d1.id = 'WishListItem '+globalctr;
         let d2 = document.createElement('div');
-        d1.id = 'WishListButton';
+        d1.id = 'WishListButton '+globalctr;
         div.setAttribute('class' ,'row');
         d1.setAttribute('class' , 'col-lg-6');
         d2.setAttribute('class', 'col-lg-6');
         let b = document.createElement('button');
+        b.id = 'wishButt '+globalctr;
         b.innerText = "Done";
         b.setAttribute('class', 'btn btn-warning');
         b.setAttribute('type' , 'button');
-        b.setAttribute('onClick', '{this.doneWishList(this.id)}');
+        b.onclick  = () =>this.doneWishList(b.id);
         let entry = document.createElement('li');
         entry.innerText = item;
-        entry.id = globalctr;
-        // make button and all.
+        entry.id = 'WishLi '+ globalctr;
         let baseUrl = 'https://www.amazon.com/s?k=';
         let input = baseUrl + item.replace(/[^A-Z0-9]+/ig, "+");
-        entry.onclick = ()=>{window.open(input,'_blank')};
+        entry.onclick = ()=>{window.open(input,'_blank');};
         d1.appendChild(entry);
         d2.appendChild(b);
         div.appendChild(d1);
         div.appendChild(d2);
         list.appendChild(div);
         list.appendChild(br);
+        globalctr += 1;
     }
 
     getlocation(){
@@ -373,7 +381,11 @@ export default class event extends React.Component {
     }
 
     doneWishList(buttonId){
-        alert(buttonId);
+        let b = buttonId.split(" ");
+        let item = 'WishLi '+b[1];
+        //alert(item);
+        let l = document.getElementById(item);
+        l.style.textDecoration = 'line-through';
       }
 
 
