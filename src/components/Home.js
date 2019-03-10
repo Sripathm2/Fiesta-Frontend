@@ -31,10 +31,10 @@ const Home = () => (
             </div>
             <ul className="nav justify-content-end">
                 <li className="nav-item">
-                    <a className="nav-link" href="#">Sign Up</a>
+                    <a className="nav-link" href="/create_user">Sign Up</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" href="#">Login</a>
+                    <a className="nav-link" href="/login">Login</a>
                 </li>
 
             </ul>
@@ -44,15 +44,15 @@ const Home = () => (
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-sm-12 col-md-12 col-lg-12">
-                        <img class="landingimg" src={require("../res/fiestalogo.png")} alt="cannot display"/>
+                        <img className="landingimg" src={require("../res/fiestalogo.png")} alt="cannot display"/>
                     </div>
                 </div>
-                <div class="jumbotron">
-                    <h1 class="display-4">Welcome to Fiesta!</h1>
-                    <p class="lead">You're personal party planning app!</p>
-                    <hr class="my-4"></hr>
+                <div className="jumbotron">
+                    <h1 className="display-4">Welcome to Fiesta!</h1>
+                    <p className="lead">You're personal party planning app!</p>
+                    <hr className="my-4"></hr>
                     <p>Having difficulty planning the next big event? We're here to help!</p>
-                    <a class="btn btn-info btn-lg" href="#about" role="button">Learn more</a>
+                    <a className="btn btn-info btn-lg" href="#about" role="button">Learn more</a>
                 </div>
             </div>
         </div>
@@ -74,19 +74,19 @@ const Home = () => (
                     <div className="col-sm">
                         <h4>Create Invites</h4>
                         <hr></hr>
-                        <img src= {require("../res/createinvite.jpg")}></img>
+                        <img src= {require("../res/createinvite.jpg")} alt="cannot display"/>
                         <p>Instantly create online invites for your parties and keep track of upcoming events</p>
                     </div>
                     <div className="col-sm">
                         <h4>Plan Everything</h4>
                         <hr></hr>
-                        <img src= {require("../res/planning.jpg")}></img>
+                        <img src= {require("../res/planning.jpg")} alt="cannot display"/>
                         <p>Plan everything from food to location to gifts through Fiesta's inbuilt APIs</p>
                     </div>
                     <div className="col-sm">
                         <h4>Celebrate</h4>
                         <hr></hr>
-                        <img src= {require("../res/celebrate.jpg")}></img>
+                        <img src= {require("../res/celebrate.jpg")} alt="cannot display"/>
                         <p>Celebrate a stress free party, as Fiesta is there to help you!</p>
                     </div>
                 </div>
@@ -107,11 +107,11 @@ const Home = () => (
                 </div>
                 <div className="row">
                     <div className="col-sm">
-                        <img id="teamimg" src= {require("../res/shiv.jpg")}></img>
+                        <img id="teamimg" src= {require("../res/shiv.jpg")} alt="cannot display"/>
                         <h4>Shivangi Chand</h4>
                     </div>
                     <div className="col-sm">
-                        <img id="teamimg" src= {require("../res/pooja.jpg")}></img>
+                        <img id="teamimg" src= {require("../res/pooja.jpg")} alt="cannot display"/>
                         <h4>Pooja Tewari</h4>
                     </div>
                 </div>
@@ -123,15 +123,15 @@ const Home = () => (
                 </div>
                 <div className="row">
                     <div className="col-sm">
-                        <img id="teamimg" src= {require("../res/siddharth.jpg")}></img>
+                        <img id="teamimg" src= {require("../res/siddharth.jpg")} alt="cannot display"/>
                         <h4>Siddharth Dhar</h4>
                     </div>
                     <div className="col-sm">
-                        <img id="teamimg" src= {require("../res/sri.jpg")}></img>
+                        <img id="teamimg" src= {require("../res/sri.jpg")} alt="cannot display"/>
                         <h4>Sripath Mishra</h4>
                     </div>
                     <div className="col-sm">
-                        <img id="teamimg" src= {require("../res/ethan.jpg")}></img>
+                        <img id="teamimg" src= {require("../res/ethan.jpg")} alt="cannot display"/>
                         <h4>Ethan Niu</h4>
                     </div>
                 </div>
@@ -148,18 +148,18 @@ const Home = () => (
 
                 <p>Have any questions, comments, or concerns? Send us a message below!</p>
                 <form>
-                    <div class="form row">
-                        <div class="col">
-                        <input type="text" class="form-control" placeholder="First name"></input>
+                    <div className="form row">
+                        <div className="col">
+                        <input type="text" className="form-control" placeholder="First name"></input>
                         </div>
-                        <div class="col">
-                        <input type="text" class="form-control" placeholder="Last name"></input>
+                        <div className="col">
+                        <input type="text" className="form-control" placeholder="Last name"></input>
                         </div>
                     </div>
                     <hr></hr>
-                    <div class="form row">
-                        <div class="col">
-                        <input type="email" class="form-control" id="inputEmail3" placeholder="Email"></input>
+                    <div className="form row">
+                        <div className="col">
+                        <input type="email" className="form-control" id="inputEmail3" placeholder="Email"></input>
                         </div>
                     </div>
                     <hr></hr>
@@ -169,7 +169,7 @@ const Home = () => (
 
                     </div>
                     <hr></hr>
-                    <button type="submit" className="btn btn-dark" onClick={enter}>Submit</button>
+                    <button className="btn btn-dark" onClick={enter}>Submit</button>
                 </form>
             </div>
 
@@ -184,23 +184,18 @@ const Home = () => (
 );
 
 function enter() {
-    let data = {};
-    data.text = document.getElementById("exampleFormControlTextarea1").value;
-
-    let url = 'https://fiesta.herokuapp.com/user/feedback';
-
-    axios({
-        method: 'post',
-        url: url,
-        data: {
-            feedbackText: data.text
-        }
-    })
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+    axios.post('https://fiesta-api.herokuapp.com/feedback', {
+    feedbackText:document.getElementById("exampleFormControlTextarea1").value
+  })
+  .then(function (response) {
+    alert("Feedback submitted, Thank You!");
+    console.log(response.data);
+    window.location.replace("/");
+  })
+  .catch(function (error) {
+    alert("Error: Feedback was not submitted please try again!");
+        console.log(error + '1');
+  });
 }
+
 export default Home;
