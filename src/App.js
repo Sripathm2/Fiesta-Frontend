@@ -14,14 +14,13 @@ const App = () => (
     <Router>
         <div>
             <Route exact path="/" component={Home} />
-        </div>
-    </Router>
-);
-
-/*<Route path="/create_user" component={Create_user} />
+            <Route path="/create_user" component={Create_user} />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/login" component={login}/>
             <Route path="/forgot" component={forgotpassword}/>
-            <Route path="/event" component={event}/>*/
+            <Route path="/event" component={event}/>
+        </div>
+    </Router>
+);
 
 export default App;

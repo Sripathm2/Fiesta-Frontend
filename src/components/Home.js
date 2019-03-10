@@ -184,9 +184,7 @@ const Home = () => (
 );
 
 function enter() {
-    console.log("here");
-    console.log(axios.get('https://fiesta-api.herokuapp.com/'));
-    /*axios.post('https://fiesta-api.herokuapp.com/feedback', {
+    axios.post('https://fiesta-api.herokuapp.com/feedback', {
     feedbackText:document.getElementById("exampleFormControlTextarea1").value
   })
   .then(function (response) {
@@ -197,7 +195,7 @@ function enter() {
   .catch(function (error) {
     alert("Error: Feedback was not submitted please try again!");
         console.log(error + '1');
-  });*/
+  });
 }
 
 export default Home;
