@@ -50,7 +50,7 @@ export default class Dashboard extends Component {
 
               </div>
                 <div className="col-sm-8 col-md-8 col-lg-8">
-                    <button id = "addeventbtn" type="button" class="addeventbtn btn btn-secondary btn-lg">Add Event +</button>
+                    <button id = "addeventbtn" type="button" class="addeventbtn btn btn-secondary btn-lg" onClick = {() => window.location.replace("/event")}>Add Event +</button>
                 </div>
             </div>
             <div class = "row">

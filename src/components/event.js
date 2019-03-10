@@ -13,7 +13,7 @@ export default class event extends React.Component {
             tasks: ['example@gmail.com']
         }
         this.state = {value: 'Suggest'};
-
+        this.getPlace = this.getPlace.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.handleClickIndex = this.handleClickIndex.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -169,9 +169,9 @@ export default class event extends React.Component {
                     <div class ="col-lg-5 form-group">
                         <form>
                             <h5>Need Suggestions?</h5>
-                            <input id="suggest" className="form-control"></input>
+                            <input id="suggest" className="form-control" id="place_location"></input>
                             <br></br>
-                            <button className="btn btn-warning" type="submit">Submit</button>
+                            <button className="btn btn-warning" type="submit" onClick={this.getPlace}>Submit</button>
                         </form>
                     </div>
                 </div>
@@ -284,6 +284,17 @@ export default class event extends React.Component {
         </div>
 
         );
+    }
+
+    getPlace(event){
+        let input = document.getElementById("place_location").value;
+        axios.get('https://fiesta-api.herokuapp.com/event/event?location='+input)
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
     }
 
     handleClick(event){
