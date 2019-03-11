@@ -94,7 +94,7 @@ export default class Dashboard extends Component {
 
     load(){
         let userName1 ='';
-        axios.post('https://fiesta-api.herokuapp.com/event/Selectrsvp?userName=' + userName1)
+        axios.post('https://fiesta-api.herokuapp.com/event/SelectRsvp?userName=' + userName1)
         .then(function (response) {
             //The respose.data has the list of events.
         })
