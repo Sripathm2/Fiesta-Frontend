@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import '../css/dashboard.css'
 import Modal from 'react-awesome-modal';
 import Calendar from 'react-calendar/dist/entry.nostyle';
+import axios from 'axios';
 
 export default class Dashboard extends Component {
     constructor(props) {
@@ -89,5 +90,17 @@ export default class Dashboard extends Component {
             </section>
     </div>
         );
+    }
+
+    load(){
+        let userName1 ='';
+        axios.post('https://fiesta-api.herokuapp.com/event/Selectrsvp?userName=' + userName1)
+        .then(function (response) {
+            //The respose.data has the list of events.
+        })
+        .catch(function (error) {
+            alert("Error: Event was not submitted please try again!");
+            console.log(error + '1');
+        });
     }
 }
