@@ -313,7 +313,7 @@ export default class event extends React.Component {
     }
     handleChange(event){
         this.setState({value: event.target.value});
-        //eval(this[event.target.name]).bind(this)(event)
+        eval(this[event.target.name]).bind(this)(event)
     }
     handleSubmit(event){
         event.preventDefault()
