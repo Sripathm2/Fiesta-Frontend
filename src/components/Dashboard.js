@@ -14,6 +14,7 @@ export default class Dashboard extends Component {
         this.state = {
             date: new Date(),
         }
+        this.load = this.load.bind(this);
     }
 
     onChange = date => this.setState({ date });
@@ -96,7 +97,18 @@ export default class Dashboard extends Component {
         let userName1 ='';
         axios.post('https://fiesta-api.herokuapp.com/event/SelectRsvp?userName=' + userName1)
         .then(function (response) {
-            //The respose.data has the list of events.
+            //The respose.data.data has the list of events.
+        })
+        .catch(function (error) {
+            alert("Error: Event was not submitted please try again!");
+            console.log(error + '1');
+        });
+    }
+    getevent(){
+        let eventId = '';
+        axios.post('https://fiesta-api.herokuapp.com/event/eventDetails?id=' + eventId)
+        .then(function (response) {
+            //The respose.data.data has the list of events.
         })
         .catch(function (error) {
             alert("Error: Event was not submitted please try again!");
