@@ -46,7 +46,7 @@ export default class Dashboard extends Component {
                     <h6>Email</h6>
                     <input type="button" class="btn btn-secondary" value="Edit Profile" onClick={() => this.openModal()} />
                     <hr></hr>
-                    <input type="button" class="btn btn-danger" value="Logout" onClick={() => this.openModal()} />
+                    <a value="Logout" className="btn btn-danger" href="/">Logout</a>
 
               </div>
                 <div className="col-sm-8 col-md-8 col-lg-8">

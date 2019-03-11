@@ -82,7 +82,7 @@ export default class event extends React.Component {
                     <a className="nav-link" href="/Dashboard">Dashboard</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" href="/Home">Logout</a>
+                    <a className="nav-link" href="/">Logout</a>
                 </li>
 
             </ul>
