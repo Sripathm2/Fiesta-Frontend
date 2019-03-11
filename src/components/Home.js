@@ -169,7 +169,7 @@ const Home = () => (
 
                     </div>
                     <hr></hr>
-                    <button className="btn btn-dark" onClick={enter}>Submit</button>
+                    <button className="btn btn-dark" onClick={(e) => {enter(e)}}>Submit</button>
                 </form>
             </div>
 
@@ -183,7 +183,8 @@ const Home = () => (
     </div>
 );
 
-function enter() {
+async function enter(e) {
+    e.preventDefault();
     axios.post('https://fiesta-api.herokuapp.com/feedback', {
     feedbackText:document.getElementById("exampleFormControlTextarea1").value
   })

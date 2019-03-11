@@ -33,13 +33,13 @@ const login = () => (
 
                     <div class = "form-row">
                             <div class = "col">
-                                    <button type="submit" onClick={enter} class="btn btn-dark _button _button-2">Login</button>
+                                    <button type="submit" onClick={(e) => {enter(e)}} class="btn btn-dark _button _button-2">Login</button>
                             </div>
                     </div>
             </form>
             <div>
                 <br></br>
-                <p className="text text-3">Forgot Password? <a onClick={forgotPassword}>Click Here</a></p>
+                <p className="text text-3">Forgot Password? <a onClick={(e) => {forgotPassword(e)}}>Click Here</a></p>
                 <br></br>
                 <Link to="/create_user" color = "black">New to Fiesta? </Link>
             </div>
@@ -47,7 +47,8 @@ const login = () => (
     </div>
 );
 
-function forgotPassword(){
+function forgotPassword(e){
+    e.preventDefault();
     let userdata = {};
     userdata.userName = document.getElementById("username").value;
 
@@ -72,7 +73,8 @@ function forgotPassword(){
         });
 }
 
-function enter(){
+function enter(e){
+    e.preventDefault();
     let userdata = {};
     userdata.userName = document.getElementById("username").value;
     userdata.password = document.getElementById("password").value;

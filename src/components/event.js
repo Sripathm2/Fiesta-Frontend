@@ -163,7 +163,7 @@ export default class event extends React.Component {
                         <form>
                             <input id="give" class="form-control" placeholder="Address"></input>
                             <br></br>
-                            <button class = "btn btn-warning" type = "button" onClick={this.getlocation}>Submit</button>
+                            <button class = "btn btn-warning" type = "button" onClick={(e) =>{this.getlocation(e)}}>Submit</button>
                             <br></br>
                         </form>
                     </div>
@@ -271,7 +271,7 @@ export default class event extends React.Component {
             </div>
         </div>
 
-        <input className="btn btn-success btn-lg" type="submit" value="Save All Changes" onClick={this.submitall}></input>
+        <input className="btn btn-success btn-lg" type="submit" value="Save All Changes" onClick={(e) =>{this.submitall(e)}}></input>
 
         <footer id="footer"className="footer">
             <div>
@@ -286,6 +286,7 @@ export default class event extends React.Component {
     }
 
     getPlace(event){
+        event.preventDefault();
         let input = document.getElementById("place_location").value;
         axios.get('https://fiesta-api.herokuapp.com/event/event?location='+input)
         .then(function (response) {
@@ -359,7 +360,8 @@ export default class event extends React.Component {
         globalctr += 1;
     }
 
-    getlocation(){
+    getlocation(event){
+        event.preventDefault();
         let loco = document.getElementById("give").value;
         let url = "https://www.google.com/maps/dir/?api=1&destination="+loco;
         let br = document.createElement('br');
@@ -392,7 +394,8 @@ export default class event extends React.Component {
       }
 
 
-    submitall(){
+    submitall(event){
+        event.preventDefault();
         let data = {};
         data.userName = '';
         data.title = document.getElementById("exampleFormControlInput1").value;

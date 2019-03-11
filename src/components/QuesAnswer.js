@@ -1,7 +1,5 @@
 import React from 'react';
 import '../css/indexqa.css'
-import axios from 'axios';
-import {Link} from "react-router-dom";
 
 const QuesAnswer = () => (
     load(),
@@ -20,7 +18,7 @@ const QuesAnswer = () => (
 );
 
 function load(){
-    
+
 }
 export default QuesAnswer;
 

@@ -104,7 +104,9 @@ export default class Dashboard extends Component {
             console.log(error + '1');
         });
     }
-    getevent(){
+    getevent(e){
+        e.preventDefault();
+        //have this in onclick - onClick={(e) => {functionname(e)}}
         let eventId = '';
         axios.post('https://fiesta-api.herokuapp.com/event/eventDetails?id=' + eventId)
         .then(function (response) {

@@ -45,7 +45,7 @@ const Create_user = () => (
                 </div>
                 <div className="form-row">
                     <div className="col">
-                        <button type="submit" onClick={signUp} className="btn btn-dark _button _button-4">Sign Up</button>
+                        <button type="submit" onClick={(e) => {signUp(e)}} className="btn btn-dark _button _button-4">Sign Up</button>
                     </div>
                 </div>
             </form>
@@ -57,7 +57,8 @@ const Create_user = () => (
     </div>
 );
 
-function signUp() {
+function signUp(e) {
+    e.preventDefault();
     let userdata = {};
     userdata.userName = document.getElementById("userName").value;
     userdata.password = document.getElementById("password").value;
