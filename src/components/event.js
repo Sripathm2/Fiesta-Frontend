@@ -82,7 +82,7 @@ export default class event extends React.Component {
                     <a className="nav-link" href="/Dashboard">Dashboard</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" href="/Home">Logout</a>
+                    <a className="nav-link" href="/">Logout</a>
                 </li>
 
             </ul>
@@ -157,23 +157,14 @@ export default class event extends React.Component {
             <div className="container">
                 <div id="eventvenuenav"></div>
                 <h3>Event Venue</h3>
-                    <div class="row">
-                    <div class = "col-lg-6 form-group" id ="giveloco">
+                    <div class="row-10">
+                    <div class = "form-group" id ="giveloco">
+                        <h5>Need Suggestion?<a href="https://eventup.com/" target="_blank"> Click here</a></h5>
                         <form>
-                            <h5>Give a Location</h5>
                             <input id="give" class="form-control" placeholder="Address"></input>
                             <br></br>
                             <button class = "btn btn-warning" type = "button" onClick={this.getlocation}>Submit</button>
                             <br></br>
-                        </form>
-                    </div>
-                    <div class = " vl col-lg-1"></div>
-                    <div class ="col-lg-5 form-group">
-                        <form>
-                            <h5>Need Suggestions?</h5>
-                            <input id="suggest" className="form-control" id="place_location"></input>
-                            <br></br>
-                            <button className="btn btn-warning" type="submit" onClick={()=>{window.open('https://eventup.com/','_blank');}}>Submit</button>
                         </form>
                     </div>
                 </div>
@@ -313,7 +304,7 @@ export default class event extends React.Component {
     }
     handleChange(event){
         this.setState({value: event.target.value});
-        //eval(this[event.target.name]).bind(this)(event)
+        eval(this[event.target.name]).bind(this)(event)
     }
     handleSubmit(event){
         event.preventDefault()
