@@ -23,6 +23,23 @@ export default class event extends React.Component {
         this.doneWishList = this.doneWishList.bind(this);
         this.assigntasklist = this.assigntasklist.bind(this);
         this.submitall = this.submitall.bind(this);
+        this.load = this.load.bind(this);
+    }
+
+    load(){
+        let data = document.cookie;
+        data = data.substring(data.indexOf('ID=')+3);
+        data = data.substring(0,data.indexOf(';'));
+        let eventId = data;
+        axios.post('https://fiesta-api.herokuapp.com/event/eventDetails?id=' + eventId)
+        .then(function (response) {
+            document.getElementById("example-date-input").value = response.data.data[0].date;
+            
+        })
+        .catch(function (error) {
+            alert("Error: Event was not submitted please try again!");
+            console.log(error + '1');
+        });
     }
     openModal() {
         this.setState({
@@ -44,6 +61,7 @@ export default class event extends React.Component {
             </li>
           ))
         return (
+            this.load(),
     <div className="App">
 
 
@@ -375,7 +393,7 @@ export default class event extends React.Component {
         l.appendChild(p);
         l.appendChild(br);
         l.appendChild(entry);
-      }
+    }
 
     assigntasklist(){
         let item1 = document.getElementById("assigntaskbox").value;

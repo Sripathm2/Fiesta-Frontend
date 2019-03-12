@@ -106,15 +106,8 @@ export default class Dashboard extends Component {
     }
     getevent(e){
         e.preventDefault();
-        //have this in onclick - onClick={(e) => {functionname(e)}}
-        let eventId = '';
-        axios.post('https://fiesta-api.herokuapp.com/event/eventDetails?id=' + eventId)
-        .then(function (response) {
-            //The respose.data.data has the list of events.
-        })
-        .catch(function (error) {
-            alert("Error: Event was not submitted please try again!");
-            console.log(error + '1');
-        });
+        let eventID ='';
+        document.cookie = 'ID=' + eventID + "; path=/;" + document.coockie;
+        window.location.replace("/event")
     }
 }
