@@ -7,7 +7,7 @@ import Dashboard from './components/Dashboard'
 import login from './components/login'
 import forgotpassword from './components/forgotpassword'
 import event from './components/event'
-import QuesAnswer from './components/QuesAnswer'
+//import QuesAnswer from './components/QuesAnswer'
 
 import Route from "react-router/es/Route";
 
@@ -20,7 +20,6 @@ const App = () => (
             <Route path="/login" component={login}/>
             <Route path="/forgot" component={forgotpassword}/>
             <Route path="/event" component={event}/>
-            <Route path="/QuesAnswer" component={QuesAnswer}/>
         </div>
     </Router>
 );

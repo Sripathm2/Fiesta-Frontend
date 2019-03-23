@@ -33,8 +33,8 @@ export default class event extends React.Component {
         let eventId = data;
         axios.post('https://fiesta-api.herokuapp.com/event/eventDetails?id=' + eventId)
         .then(function (response) {
-            document.getElementById("example-date-input").value = response.data.data[0].date;
-            
+            document.getElementById("example-date-input").value;
+
         })
         .catch(function (error) {
             alert("Error: Event was not submitted please try again!");
@@ -75,29 +75,29 @@ export default class event extends React.Component {
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav mx-auto">
                     <li className="nav-item">
-                        <a className="nav-link" href="#eventinfonav">Info</a>
+                        <a className="nav-link" href="#eventcateringnav">Info</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#eventvenuenav">Venue</a>
+                        <a className="nav-link" href="#eventinvitesnav">Venue</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#eventcateringnav">Catering</a>
+                        <a className="nav-link" href="#eventinfonav">Catering</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#eventinvitesnav">Invites</a>
+                        <a className="nav-link" href="#eventvenuenav">Invites</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#eventwishlistnav">Wishlist</a>
+                        <a className="nav-link" href="#eventasklistnav">Wishlist</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#eventasklistnav">Tasklist</a>
+                        <a className="nav-link" href="#eventwishlistnav">Tasklist</a>
                     </li>
                 </ul>
 
             </div>
             <ul className="nav justify-content-end">
                 <li className="nav-item">
-                    <a className="nav-link" href="/Dashboard">Dashboard</a>
+                    <a className="nav-link" href="/">Dashboard</a>
                 </li>
                 <li className="nav-item">
                     <a className="nav-link" href="/">Logout</a>
@@ -131,7 +131,7 @@ export default class event extends React.Component {
                         <label htmlFor="exampleFormControlTextarea1">Event Description:</label>
                     </div>
                     <div className="col-sm-10">
-                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
+                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="2" maxlength="2"></textarea>
                     </div>
                 </div>
 
@@ -177,7 +177,7 @@ export default class event extends React.Component {
                 <h3>Event Venue</h3>
                     <div class="row-10">
                     <div class = "form-group" id ="giveloco">
-                        <h5>Need Suggestion?<a href="https://eventup.com/" target="_blank"> Click here</a></h5>
+                        <h5>Need Suggestion?<a href="https://www.ezcater.com/" target="_blank"> Click here</a></h5>
                         <form>
                             <input id="give" class="form-control" placeholder="Address"></input>
                             <br></br>
@@ -195,7 +195,7 @@ export default class event extends React.Component {
                 <h3>Event Catering</h3>
                 <hr></hr>
                 <div className="row-10">
-                    <h5>Need Suggestion?<a href="https://www.ezcater.com/" target="_blank"> Click here</a></h5>
+                    <h5>Need Suggestion?<a href="https://eventup.com/" target="_blank"> Click here</a></h5>
                     <form>
                         <div className="form-group">
                             <input className="form-control" placeholder="Final Catering Option"></input>
@@ -253,7 +253,7 @@ export default class event extends React.Component {
                         </div>
 
                         <div>
-                             <button className="btn btn-warning" type="button" onClick={this.addwhislist}>Submit</button>
+                             <button className="btn btn-warning" type="button" onClick={() => {this.addwhislist(); this.assigntasklist();}}>Submit</button>
                         </div>
                     </div>
                 </div>
@@ -337,6 +337,7 @@ export default class event extends React.Component {
         const tasks = this.state.tasks || []
         tasks.push(this.state.task)
         this.setState({tasks:tasks, task:''})
+
     }
     removeTask(index, event) {
         const tasks = this.state.tasks
@@ -345,7 +346,7 @@ export default class event extends React.Component {
         this.setState({tasks})
     }
     addwhislist(){
-        let item = document.getElementById("wishlistBox").value;
+        let item = document.getElementById("wishlistBox").value + ' hi';
         let list = document.getElementById("wishlistList");
         let div = document.createElement('div');
         div.id = 'wishListDiv '+globalctr;
@@ -397,13 +398,18 @@ export default class event extends React.Component {
 
     assigntasklist(){
         let item1 = document.getElementById("assigntaskbox").value;
+        if(item1.length < 2){
+            item1 = '{empty}';
+        }
         let list1 = document.getElementById("assigntasklist");
         let entry1 = document.createElement('li');
         entry1.innerText = item1;
         list1.appendChild(entry1);
+        window.open("https://www.amazon.com/",'_blank');
     }
 
     doneWishList(buttonId){
+        this.addwhislist();
         let b = buttonId.split(" ");
         let item = 'WishLi '+b[1];
         //alert(item);
@@ -427,6 +433,7 @@ export default class event extends React.Component {
         data.invites = '';
         data.wishlist = document.getElementById("wishlistList").innerHTML;
         data.tasklist = document.getElementById("assigntasklist").innerHTML;
+        console.log(data);
         axios.post('https://fiesta-api.herokuapp.com/event/create', {
             userName: data.userName,
             date:data.date,

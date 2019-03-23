@@ -18,23 +18,23 @@ const Home = () => (
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav">
                     <li className="nav-item">
-                        <a className="nav-link" href="#about">About</a>
+                        <a className="nav-link" >About</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#team">Team</a>
+                        <a className="nav-link" >Team</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#contact">Feedback</a>
+                        <a className="nav-link" >Feedback</a>
                     </li>
                 </ul>
 
             </div>
             <ul className="nav justify-content-end">
                 <li className="nav-item">
-                    <a className="nav-link" href="/create_user">Sign Up</a>
+                    <a className="nav-link" href="/login">Sign Up</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" href="/login">Login</a>
+                    <a className="nav-link" href="/create_user">Login</a>
                 </li>
 
             </ul>
@@ -150,7 +150,7 @@ const Home = () => (
                 <form>
                     <div className="form row">
                         <div className="col">
-                        <input type="text" className="form-control" placeholder="First name"></input>
+                        <input type="text" className="form-control" placeholder="First name" disabled></input>
                         </div>
                         <div className="col">
                         <input type="text" className="form-control" placeholder="Last name"></input>
