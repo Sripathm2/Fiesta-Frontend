@@ -24,6 +24,7 @@ export default class Dashboard extends Component {
         this.setState({
             visible : true
         });
+        alert("Hello! I am an alert box!!");
     }
 
     closeModal() {
@@ -31,7 +32,10 @@ export default class Dashboard extends Component {
             visible : false
         });
     }
-
+    openCal()
+    {
+        alert("hi");
+    }
     render() {
         return (
     <div className="App">
@@ -61,7 +65,7 @@ export default class Dashboard extends Component {
                     <br></br>
                     <hr></hr>
                     <Calendar onChange={this.onChange}
-                    value={this.state.date}/>
+                    value={this.state.date} id="caldate" onClick={this.openCal()}/>
                 </div>
             </div>
         </div>
@@ -89,15 +93,44 @@ export default class Dashboard extends Component {
                     </div>
                 </Modal>
             </section>
+            <section >
+                <Modal visible={this.state.visible} width="400" height="300" effect="fadeInUp" onClickAway={() => this.closeModal()}>
+                    <div id="popup">
+                        <h2>Edit Profile</h2>
+                        <hr></hr>
+                        <form >
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                                <div class="col-sm-10">
+                                <input type="email" class="form-control" id="inputEmail3" placeholder="Email"></input>
+                                </div>
+                            </div>
+                            </form>
+                        <button class="btn btn-outline-success" onClick={() => this.closeModal()}>Save</button>
+                    </div>
+                </Modal>
+            </section>
     </div>
         );
+    }
+    colorCal(x)
+    {
+        if(x == document.getElementsById("caldate").value)
+        {
+            document.getElementById("caldate").style.backgroundColor='white';
+        }
     }
 
     load(){
         let userName1 ='';
+        
         axios.post('https://fiesta-api.herokuapp.com/event/SelectRsvp?userName=' + userName1)
         .then(function (response) {
             //The respose.data.data has the list of events.
+            var i;
+            for (i = 0; i < response.data.data.length; i++) { 
+                this.colorCal(response.data.data[i].date);
+              }
         })
         .catch(function (error) {
             alert("Error: Event was not submitted please try again!");
