@@ -1,24 +1,21 @@
 import React, {Component} from 'react';
 import '../css/dashboard.css'
 import Modal from 'react-awesome-modal';
-import Calendar from 'react-calendar/dist/entry.nostyle';
+import Calendar from 'react-calendar';
 import axios from 'axios';
 
 export default class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            visible : false
+            visible : false,
+            date: [new Date()],
         }
 
-        this.state = {
-            date: new Date(),
-        }
         this.load = this.load.bind(this);
     }
 
     onChange = date => this.setState({ date });
-
 
     openModal() {
         this.setState({
@@ -32,24 +29,20 @@ export default class Dashboard extends Component {
             visible : false
         });
     }
-    openCal()
-    {
-        alert("hi");
+    openCal(){
     }
     render() {
+        this.load();
         return (
     <div className="App">
         <div id="container">
-           {/* <div className="col-sm-12 col-md-12 col-lg-12">
-                <img id = "forgotimg" src={require("../res/fiestalogo.png")} alt="cannot display"/>
-        </div>*/}
             <h2>Dashboard</h2>
             <hr></hr>
             <div class = "row">
                 <div class = "col-2">
                     <h4>Profile</h4>
-                    <h6>Name</h6>
-                    <h6>Email</h6>
+                    <h6 id='name'>Name</h6>
+                    <h6 id='email'>Email</h6>
                     <input type="button" class="btn btn-secondary" value="Edit Profile" onClick={() => this.openModal()} />
                     <hr></hr>
                     <a value="Logout" className="btn btn-danger" href="/">Logout</a>
@@ -113,28 +106,42 @@ export default class Dashboard extends Component {
     </div>
         );
     }
-    colorCal(x)
-    {
+    colorCal(x){
         if(x == document.getElementsById("caldate").value)
         {
             document.getElementById("caldate").style.backgroundColor='white';
         }
     }
-
     load(){
         let userName1 ='';
-        
-        axios.post('https://fiesta-api.herokuapp.com/event/SelectRsvp?userName=' + userName1)
+        let token = document.cookie.substring(document.cookie.indexOf('token=')+6);
+        token = token.substring(0);
+
+        axios.get('https://fiesta-api.herokuapp.com/user/getData?token=' + token)
         .then(function (response) {
-            //The respose.data.data has the list of events.
-            var i;
-            for (i = 0; i < response.data.data.length; i++) { 
-                this.colorCal(response.data.data[i].date);
-              }
+            document.getElementById('name').innerHTML = response.data.name;
+            document.getElementById('email').innerHTML = response.data.email;
+            axios.get('https://fiesta-api.herokuapp.com/event/get_event?token=' + token)
+                .then(function (response1) {
+                    if(response1.data.data.length == 0){
+                        return;
+                    }
+                    let arr = [new Date()];
+                    for(let i=0; i < response1.data.data.length; i++ ){
+                        arr.push(new Date(response1.data.data[i].date.substring(0,10)));
+                    }
+                    console.log(arr);
+                    this.setState({ date: arr });
+                })
+                .catch(function (error1) {
+                    console.log(error1);
+                    alert("Error: Dashboard problem in getting user event data please login again.");
+                    window.location.replace("/login");
+                });
         })
         .catch(function (error) {
-            alert("Error: Event was not submitted please try again!");
-            console.log(error + '1');
+            alert("Error: Dashboard problem in getting user data please login again. ");
+            window.location.replace("/login");
         });
     }
     getevent(e){

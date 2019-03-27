@@ -30,16 +30,22 @@ export default class event extends React.Component {
         let data = document.cookie;
         data = data.substring(data.indexOf('ID=')+3);
         data = data.substring(0,data.indexOf(';'));
+        if(data.length < 3){
+            return;
+        }
         let eventId = data;
+
+        //todo get event data.
+        /*
         axios.post('https://fiesta-api.herokuapp.com/event/eventDetails?id=' + eventId)
         .then(function (response) {
             document.getElementById("example-date-input").value = response.data.data[0].date;
-            
+
         })
         .catch(function (error) {
             alert("Error: Event was not submitted please try again!");
             console.log(error + '1');
-        });
+        });*/
     }
     openModal() {
         this.setState({
@@ -59,9 +65,9 @@ export default class event extends React.Component {
             <li id = "guestemails">
               {task} <button id="guestemaildelete" name="removeTask" onClick={event=>this.handleClickIndex(index,event)}>x</button>
             </li>
-          ))
+          ));
+        this.load();
         return (
-            this.load(),
     <div className="App">
 
 
@@ -198,7 +204,7 @@ export default class event extends React.Component {
                     <h5>Need Suggestion?<a href="https://www.ezcater.com/" target="_blank"> Click here</a></h5>
                     <form>
                         <div className="form-group">
-                            <input className="form-control" placeholder="Final Catering Option"></input>
+                            <input className="form-control" id="cater" placeholder="Final Catering Option"></input>
                             <br></br>
                             <button className="btn btn-warning" type="button">Submit</button>
                         </div>
@@ -409,69 +415,85 @@ export default class event extends React.Component {
         //alert(item);
         let l = document.getElementById(item);
         l.style.textDecoration = 'line-through';
-      }
-
+    }
 
     submitall(event){
         event.preventDefault();
         let data = {};
-        data.userName = '';
         data.title = document.getElementById("exampleFormControlInput1").value;
         data.description = document.getElementById("exampleFormControlTextarea1").value;
         data.date = document.getElementById("example-date-input").value;
         data.time = document.getElementById("example-time-input").value;
         data.imageLink = document.getElementById("exampleFormControlInput12").value;
-        data.place = '';
-        data.catering = '';
-        data.partySupplier = '';
+        data.place = document.getElementById("give").value;
+        data.catering = document.getElementById("cater").value;
+        data.partySupplier = 'N/A';
+        let tempinvite = this.state.tasks;
         data.invites = '';
+        if(tempinvite){
+            data.invites = '';
+            for( let i=0;i<tempinvite.length;i++){
+            data.invites += '//**//' + tempinvite[i] + '--';
+            }
+        }
         data.wishlist = document.getElementById("wishlistList").innerHTML;
+        let newdata ='';
+        while(data.wishlist.length > 0){
+            let temp = data.wishlist;
+            temp = temp.substring(temp.indexOf('class="col-lg-6"><li id')+ 23);
+            temp = temp.substring(temp.indexOf('>')+1);
+            newdata += '//**//' + temp.substring(0,temp.indexOf('<'));
+            temp = temp.substring(temp.indexOf('<br>')+4);
+            data.wishlist = temp;
+        }
+        data.wishlist = newdata;
         data.tasklist = document.getElementById("assigntasklist").innerHTML;
-        axios.post('https://fiesta-api.herokuapp.com/event/create', {
-            userName: data.userName,
-            date:data.date,
-            location: data.place,
-            caterer: data.catering,
-            partySupplier: data.partySupplier,
-            guests: data.invites
-        })
-        .then(function (response) {
-                axios.post('https://fiesta-api.herokuapp.com/event/image_post', {
-                    id: response.data.data,
-                    data: '{' + data.imageLink + '}'
-                })
-                .then(function (response1) {
-                    axios.post('https://fiesta-api.herokuapp.com/event/tasks_post', {
-                        id: response.data.data,
-                        task: '{' + data.task + '}'
-                    })
-                    .then(function (response1) {
-                        axios.post('https://fiesta-api.herokuapp.com/event/createWishlist', {
-                            userName: data.userName,
-                            item: '{' + data.wishlist + '}'
-                        })
-                        .then(function (response1) {
-                            window.location.replace("/Dashboard");
-                        })
-                        .catch(function (error1) {
-                            alert("Error: Event was not submitted please try again!");
-                            console.log(error1 + '1');
-                        });
-                    })
-                    .catch(function (error1) {
-                        alert("Error: Event was not submitted please try again!");
-                        console.log(error1 + '1');
-                    });
-                })
-                .catch(function (error1) {
-                    alert("Error: Event was not submitted please try again!");
-                    console.log(error1 + '1');
-                });
-        })
-        .catch(function (error) {
-            alert("Error: Event was not submitted please try again!");
-            console.log(error + '1');
-        });
+        while(data.tasklist.indexOf('<li>')!= -1){
+            data.tasklist = data.tasklist.replace(new RegExp('</li>'), '');
+            data.tasklist = data.tasklist.replace(new RegExp('<li>'), '//**//');
+        }
+
+        let token = document.cookie.substring(document.cookie.indexOf('token=')+6);
+        token = token.substring(0);
+
+        let data1 = document.cookie;
+        console.log(data.invites);
+        if(data1.indexOf('fiestaeventID=') > 0){
+            alert('1');
+            data1 = data1.substring(data1.indexOf('fiestaeventID=')+14);
+            data1 = data1.substring(0,data1.indexOf(';'));
+            alert(data1);
+        }
+        else{
+            let url='https://fiesta-api.herokuapp.com/event/create_event?token=' + token;
+
+            axios({
+                method: 'post',
+                url:url,
+                data:{
+                    name: data.title,
+                    description: data.description,
+                    date: data.date + 'T' + data.time + '+00:00',
+                    imageLink: data.imageLink,
+                    location: data.place,
+                    partySupplier: data.partySupplier,
+                    caterer: data.catering,
+                    task: data.tasklist,
+                    guest: data.invites,
+                    wishlist: data.wishlist,
+
+                }
+            })
+            .then(function (response) {
+                alert('Done!');
+                window.location.replace("/dashboard");
+            })
+            .catch(function (error) {
+                alert('Error:Please follow the format!');
+                window.location.replace("/dashboard");
+            });
+        }
+
     }
 
 }
