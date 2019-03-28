@@ -28,12 +28,12 @@ export default class event extends React.Component {
     }
 
     gotodash(){
-        let token = window.location.href;
+        /*let token = window.location.href;
         token = token.substring(token.indexOf('token=')+6);
-        if(window.location.href.indexOf('eventID=') == -1){
+        /*if(window.location.href.indexOf('eventID=') == -1){
             token = token.substring(0, token.indexOf('&'));
         }
-        window.location.replace("/dashboard?token=" + token);
+        window.location.replace("/dashboard?token=" + token);*/
     }
 
     componentDidMount(){
@@ -144,7 +144,7 @@ export default class event extends React.Component {
             </div>
             <ul className="nav justify-content-end">
                 <li className="nav-item">
-                    <a className="nav-link" onclick={this.gotodash()}>Dashboard</a>
+                    <a className="nav-link" onClick={this.gotodash()}>Dashboard</a>
                 </li>
                 <li className="nav-item">
                     <a className="nav-link" href="/">Logout</a>
