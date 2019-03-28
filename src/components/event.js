@@ -23,7 +23,17 @@ export default class event extends React.Component {
         this.doneWishList = this.doneWishList.bind(this);
         this.assigntasklist = this.assigntasklist.bind(this);
         this.submitall = this.submitall.bind(this);
+        this.gotodash = this.gotodash.bind(this);
         //this.load = this.load.bind(this);
+    }
+
+    gotodash(){
+        let token = window.location.href;
+        token = token.substring(token.indexOf('token=')+6);
+        if(window.location.href.indexOf('eventID=') == -1){
+            token = token.substring(0, token.indexOf('&'));
+        }
+        window.location.replace("/dashboard?token=" + token);
     }
 
     componentDidMount(){
@@ -134,7 +144,7 @@ export default class event extends React.Component {
             </div>
             <ul className="nav justify-content-end">
                 <li className="nav-item">
-                    <a className="nav-link" href="/Dashboard">Dashboard</a>
+                    <a className="nav-link" onclick={this.gotodash()}>Dashboard</a>
                 </li>
                 <li className="nav-item">
                     <a className="nav-link" href="/">Logout</a>
