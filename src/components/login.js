@@ -87,8 +87,7 @@ function enter(e){
     })
         .then(function (response) {
             let token = response.data.token;
-            document.cookie = 'token=' + token + ';path=/';
-            window.location.replace('/dashboard');
+            window.location.replace('/dashboard?token=' + token);
         })
         .catch(function (error) {
             console.log(error);

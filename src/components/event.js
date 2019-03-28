@@ -27,25 +27,35 @@ export default class event extends React.Component {
     }
 
     load(){
-        let data = document.cookie;
-        data = data.substring(data.indexOf('ID=')+3);
-        data = data.substring(0,data.indexOf(';'));
-        if(data.length < 3){
+        let eventID = window.location.href;
+
+        if(eventID.indexOf('eventID=') == -1){
             return;
         }
-        let eventId = data;
+        eventID = eventID.substring(eventID.indexOf('eventID=')+8);
 
-        //todo get event data.
-        /*
-        axios.post('https://fiesta-api.herokuapp.com/event/eventDetails?id=' + eventId)
+        let token = window.location.href;
+        token = token.substring(token.indexOf('token=')+6);
+        token = token.substring(0, token.indexOf('&'));
+
+        axios.get('https://fiesta-api.herokuapp.com/event/get_event?token=' + token)
         .then(function (response) {
-            document.getElementById("example-date-input").value = response.data.data[0].date;
-
+            for(let i=0;i<response.data.data.length;i++){
+                if(response.data.data[i].id === eventID){
+                    document.getElementById("exampleFormControlInput1").value = response.data.data[i].name;
+                    document.getElementById("exampleFormControlTextarea1").value = response.data.data[i].description;
+                    document.getElementById("exampleFormControlInput12").value = response.data.data[i].imagelink;
+                    document.getElementById("give").value = response.data.data[i].location;
+                    document.getElementById("cater").value = response.data.data[i].caterer;
+        /*data.date = document.getElementById("example-date-input").value;
+        data.time = document.getElementById("example-time-input").value;*/
+                    console.log(response.data.data[i]);
+                }
+            }
         })
         .catch(function (error) {
             alert("Error: Event was not submitted please try again!");
-            console.log(error + '1');
-        });*/
+        });
     }
     openModal() {
         this.setState({
@@ -453,16 +463,43 @@ export default class event extends React.Component {
             data.tasklist = data.tasklist.replace(new RegExp('<li>'), '//**//');
         }
 
-        let token = document.cookie.substring(document.cookie.indexOf('token=')+6);
-        token = token.substring(0);
+        let token = window.location.href;
+        token = token.substring(token.indexOf('token=')+6);
 
-        let data1 = document.cookie;
-        console.log(data.invites);
-        if(data1.indexOf('fiestaeventID=') > 0){
-            alert('1');
-            data1 = data1.substring(data1.indexOf('fiestaeventID=')+14);
-            data1 = data1.substring(0,data1.indexOf(';'));
-            alert(data1);
+        let eventID = window.location.href;
+        if(eventID.indexOf('eventID=') !== -1){
+            token = token.substring(0, token.indexOf('&'));
+            eventID = eventID.substring(eventID.indexOf('eventID=')+8);
+            let url='https://fiesta-api.herokuapp.com/event/update_event?token=' + token;
+
+            alert(eventID);
+
+            axios({
+                method: 'post',
+                url:url,
+                data:{
+                    id: eventID,
+                    name: data.title,
+                    description: data.description,
+                    date: data.date + 'T' + data.time + '+00:00',
+                    imageLink: data.imageLink,
+                    location: data.place,
+                    partySupplier: data.partySupplier,
+                    caterer: data.catering,
+                    task: data.tasklist,
+                    guest: data.invites,
+                    wishlist: data.wishlist,
+
+                }
+            })
+            .then(function (response) {
+                alert('Done!');
+                window.location.replace("/dashboard?token=" + token);
+            })
+            .catch(function (error) {
+                alert('Error:Please follow the format!');
+                window.location.replace("/dashboard?token=" + token);
+            });
         }
         else{
             let url='https://fiesta-api.herokuapp.com/event/create_event?token=' + token;
@@ -486,11 +523,11 @@ export default class event extends React.Component {
             })
             .then(function (response) {
                 alert('Done!');
-                window.location.replace("/dashboard");
+                window.location.replace("/dashboard?token=" + token);
             })
             .catch(function (error) {
                 alert('Error:Please follow the format!');
-                window.location.replace("/dashboard");
+                window.location.replace("/dashboard?token=" + token);
             });
         }
 

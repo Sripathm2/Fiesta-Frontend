@@ -4,32 +4,56 @@ import Modal from 'react-awesome-modal';
 import Calendar from 'react-calendar';
 import axios from 'axios';
 
+let arr;
 export default class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
             visible : false,
             date: [new Date()],
+            loading: true,
+            data: undefined
         }
 
         this.load = this.load.bind(this);
+        this.getevent = this.getevent.bind(this);
+        this.addevent = this.addevent.bind(this);
     }
-
-    onChange = date => this.setState({ date });
-
     openModal() {
         this.setState({
             visible : true
         });
         alert("Hello! I am an alert box!!");
     }
+    componentDidMount() {
+        let self = this
+        let token = window.location.href;
+        token = token.substring(token.indexOf('token=')+6);
 
+       axios.get('https://fiesta-api.herokuapp.com/event/get_event?token=' + token)
+                .then(function (response1) {
+                    if(response1.data.data.length == 0){
+                        self.setState({ date: [new Date()], loading: false });
+                    }
+                    arr = [];
+                    for(let i=0; i < response1.data.data.length && i < 2; i++ ){
+                        arr.push(new Date(response1.data.data[i].date.substring(0,10)));
+                    }
+                    self.setState({ date: arr, loading: false, data: response1.data.data});
+                })
+                .catch(function (error1) {
+                    console.log(error1);
+                    alert("Error: Dashboard problem in getting user event data please login again.");
+                    window.location.replace("/login");
+                });
+    }
     closeModal() {
         this.setState({
             visible : false
         });
     }
     openCal(){
+        alert('hi');
     }
     render() {
         this.load();
@@ -38,27 +62,27 @@ export default class Dashboard extends Component {
         <div id="container">
             <h2>Dashboard</h2>
             <hr></hr>
-            <div class = "row">
-                <div class = "col-2">
+            <div className = "row">
+                <div className = "col-2">
                     <h4>Profile</h4>
                     <h6 id='name'>Name</h6>
                     <h6 id='email'>Email</h6>
-                    <input type="button" class="btn btn-secondary" value="Edit Profile" onClick={() => this.openModal()} />
+                    <input type="button" className="btn btn-secondary" value="Edit Profile" onClick={() => this.openModal()} />
                     <hr></hr>
                     <a value="Logout" className="btn btn-danger" href="/">Logout</a>
 
               </div>
                 <div className="col-sm-8 col-md-8 col-lg-8">
-                    <button id = "addeventbtn" type="button" class="addeventbtn btn btn-secondary btn-lg" onClick = {() => window.location.replace("/event")}>Add Event +</button>
+                    <button id = "addeventbtn" type="button" className="addeventbtn btn btn-secondary btn-lg" onClick = {this.addevent}>Add Event +</button>
                 </div>
             </div>
-            <div class = "row">
-                <div class = "col-2"></div>
+            <div className = "row">
+                <div className = "col-2"></div>
                 <div className = "col-sm-8 col-lg-8 col-md-8">
                     <br></br>
                     <hr></hr>
-                    <Calendar onChange={this.onChange}
-                    value={this.state.date} id="caldate" onClick={this.openCal()}/>
+                    <Calendar
+                    value={this.state.date} id="caldate" onClickDay={(value) => this.getevent(value)}/>
                 </div>
             </div>
         </div>
@@ -75,14 +99,14 @@ export default class Dashboard extends Component {
                         <h2>Edit Profile</h2>
                         <hr></hr>
                         <form >
-                            <div class="form-group row">
-                                <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-                                <div class="col-sm-10">
-                                <input type="email" class="form-control" id="inputEmail3" placeholder="Email"></input>
+                            <div className="form-group row">
+                                <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Email</label>
+                                <div className="col-sm-10">
+                                <input type="email" className="form-control" id="inputEmail3" placeholder="Email"></input>
                                 </div>
                             </div>
                             </form>
-                        <button class="btn btn-outline-success" onClick={() => this.closeModal()}>Save</button>
+                        <button className="btn btn-outline-success" onClick={() => this.closeModal()}>Save</button>
                     </div>
                 </Modal>
             </section>
@@ -92,14 +116,14 @@ export default class Dashboard extends Component {
                         <h2>Edit Profile</h2>
                         <hr></hr>
                         <form >
-                            <div class="form-group row">
-                                <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-                                <div class="col-sm-10">
-                                <input type="email" class="form-control" id="inputEmail3" placeholder="Email"></input>
+                            <div className="form-group row">
+                                <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Email</label>
+                                <div className="col-sm-10">
+                                <input type="email" className="form-control" id="inputEmail3" placeholder="Email"></input>
                                 </div>
                             </div>
                             </form>
-                        <button class="btn btn-outline-success" onClick={() => this.closeModal()}>Save</button>
+                        <button className="btn btn-outline-success" onClick={() => this.closeModal()}>Save</button>
                     </div>
                 </Modal>
             </section>
@@ -114,40 +138,36 @@ export default class Dashboard extends Component {
     }
     load(){
         let userName1 ='';
-        let token = document.cookie.substring(document.cookie.indexOf('token=')+6);
-        token = token.substring(0);
+        let token = window.location.href;
+        token = token.substring(token.indexOf('token=')+6);
 
         axios.get('https://fiesta-api.herokuapp.com/user/getData?token=' + token)
         .then(function (response) {
             document.getElementById('name').innerHTML = response.data.name;
             document.getElementById('email').innerHTML = response.data.email;
-            axios.get('https://fiesta-api.herokuapp.com/event/get_event?token=' + token)
-                .then(function (response1) {
-                    if(response1.data.data.length == 0){
-                        return;
-                    }
-                    let arr = [new Date()];
-                    for(let i=0; i < response1.data.data.length; i++ ){
-                        arr.push(new Date(response1.data.data[i].date.substring(0,10)));
-                    }
-                    console.log(arr);
-                    this.setState({ date: arr });
-                })
-                .catch(function (error1) {
-                    console.log(error1);
-                    alert("Error: Dashboard problem in getting user event data please login again.");
-                    window.location.replace("/login");
-                });
         })
         .catch(function (error) {
+            console.log(error);
             alert("Error: Dashboard problem in getting user data please login again. ");
             window.location.replace("/login");
         });
     }
-    getevent(e){
-        e.preventDefault();
-        let eventID ='';
-        document.cookie = 'ID=' + eventID + "; path=/;" + document.coockie;
-        window.location.replace("/event")
+    addevent(){
+        let token = window.location.href;
+        token = token.substring(token.indexOf('token=')+6);
+        window.location.replace("/event?token=" + token);
+    }
+    getevent(cdate){
+        for(let i=0;i<this.state.data.length;i++){
+            let date1 = new Date(this.state.data[i].date);
+            if(cdate.getDate() === date1.getDate() && cdate.getMonth() === date1.getMonth() && cdate.getFullYear() === date1.getFullYear() ){
+                let token = window.location.href;
+                token = token.substring(token.indexOf('token=')+6);
+                let eventID = this.state.data[i].id;
+                window.location.replace("/event?token=" + token + '&eventID=' + eventID);
+            }
+        }
+
+
     }
 }
