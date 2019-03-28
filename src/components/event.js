@@ -23,10 +23,10 @@ export default class event extends React.Component {
         this.doneWishList = this.doneWishList.bind(this);
         this.assigntasklist = this.assigntasklist.bind(this);
         this.submitall = this.submitall.bind(this);
-        this.load = this.load.bind(this);
+        //this.load = this.load.bind(this);
     }
 
-    load(){
+    componentDidMount(){
         let eventID = window.location.href;
 
         if(eventID.indexOf('eventID=') == -1){
@@ -38,6 +38,8 @@ export default class event extends React.Component {
         token = token.substring(token.indexOf('token=')+6);
         token = token.substring(0, token.indexOf('&'));
 
+        let self = this;
+
         axios.get('https://fiesta-api.herokuapp.com/event/get_event?token=' + token)
         .then(function (response) {
             for(let i=0;i<response.data.data.length;i++){
@@ -47,9 +49,29 @@ export default class event extends React.Component {
                     document.getElementById("exampleFormControlInput12").value = response.data.data[i].imagelink;
                     document.getElementById("give").value = response.data.data[i].location;
                     document.getElementById("cater").value = response.data.data[i].caterer;
-        /*data.date = document.getElementById("example-date-input").value;
-        data.time = document.getElementById("example-time-input").value;*/
-                    console.log(response.data.data[i]);
+                    document.getElementById("example-date-input").value = response.data.data[i].date.substring(0,10);
+                    document.getElementById("example-time-input").value = response.data.data[i].date.substring(11,19);
+
+                    let wishlist = response.data.data[i].wishlist.split('//**//');
+                    for(let i=1;i<wishlist.length;i++){
+                        document.getElementById("wishlistBox").value = wishlist[i];
+                        self.addwhislist();
+                    }
+                    document.getElementById("wishlistBox").value = '';
+
+                    let tasks = response.data.data[i].task.split('//**//');
+                    for(let i=1;i<tasks.length;i++){
+                        document.getElementById("assigntaskbox").value = tasks[i];
+                        self.assigntasklist();
+                    }
+                    document.getElementById("assigntaskbox").value = '';
+
+                    let invites = response.data.data[i].guest.split('//**//');
+                    let clean =[];
+                    for(let i=1;i<invites.length;i++){
+                        clean.push(invites[i]);
+                    }
+                    self.setState({tasks: clean});
                 }
             }
         })
@@ -76,7 +98,6 @@ export default class event extends React.Component {
               {task} <button id="guestemaildelete" name="removeTask" onClick={event=>this.handleClickIndex(index,event)}>x</button>
             </li>
           ));
-        this.load();
         return (
     <div className="App">
 
@@ -422,7 +443,6 @@ export default class event extends React.Component {
     doneWishList(buttonId){
         let b = buttonId.split(" ");
         let item = 'WishLi '+b[1];
-        //alert(item);
         let l = document.getElementById(item);
         l.style.textDecoration = 'line-through';
     }
@@ -471,8 +491,6 @@ export default class event extends React.Component {
             token = token.substring(0, token.indexOf('&'));
             eventID = eventID.substring(eventID.indexOf('eventID=')+8);
             let url='https://fiesta-api.herokuapp.com/event/update_event?token=' + token;
-
-            alert(eventID);
 
             axios({
                 method: 'post',
