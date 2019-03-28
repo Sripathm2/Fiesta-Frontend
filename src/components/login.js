@@ -65,7 +65,7 @@ function forgotPassword(e){
     })
         .then(function (response) {
             document.cookie = 'securityQuestion=' + response.data.securityQuestion + ';path=/';
-            window.location.replace("/forget");
+            window.location.replace("/forget?username=" + userdata.userName);
 
         })
         .catch(function (error) {

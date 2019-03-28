@@ -10,7 +10,7 @@ export default class Dashboard extends Component {
         super(props);
         this.state = {
             visible : false,
-            date: [new Date()],
+            date: new Date(),
             loading: true,
             data: undefined
         }
@@ -33,7 +33,7 @@ export default class Dashboard extends Component {
        axios.get('https://fiesta-api.herokuapp.com/event/get_event?token=' + token)
                 .then(function (response1) {
                     if(response1.data.data.length == 0){
-                        self.setState({ date: [new Date()], loading: false });
+                        self.setState({loading: false});
                     }
                     arr = [];
                     for(let i=0; i < response1.data.data.length && i < 2; i++ ){

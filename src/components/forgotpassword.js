@@ -57,9 +57,10 @@ function reset(e){
     e.preventDefault();
     let user;
     user = readCookie();
-    console.log(user);
+;
     let data={};
-    data.user = user;
+    data.user = window.location.href;
+    data.user = data.user.substring(data.user.indexOf('=')+1);
     data.Q = document.getElementById("Q").value;
     data.A = document.getElementById("A").value;
     data.password = document.getElementById("password").value;
@@ -79,7 +80,8 @@ function reset(e){
         }
     })
         .then(function (response) {
-            console.log(response)
+            console.log(response);
+            window.location.replace("/login");
         })
         .catch(function (error) {
             console.log(error);
