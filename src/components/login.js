@@ -41,7 +41,7 @@ const login = () => (
                 <br></br>
                 <p className="text text-3">Forgot Password? <a onClick={(e) => {forgotPassword(e)}}>Click Here</a></p>
                 <br></br>
-                <Link to="/create_user" color = "black">New to Fiesta? </Link>
+                <button type="submit" onClick={(e) => {enter(e)}} class="btn btn-dark _button _button-2">New to Fiesta?</button>
             </div>
         </div>
     </div>

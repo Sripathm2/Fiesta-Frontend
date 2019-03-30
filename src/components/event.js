@@ -54,9 +54,7 @@ export default class event extends React.Component {
         .then(function (response) {
             for(let i=0;i<response.data.data.length;i++){
                 if(response.data.data[i].id === eventID){
-                    document.getElementById("exampleFormControlInput1").value = response.data.data[i].name;
-                    document.getElementById("exampleFormControlTextarea1").value = response.data.data[i].description;
-                    document.getElementById("exampleFormControlInput12").value = response.data.data[i].imagelink;
+                    document.getElementById("exampleFormControlInput1").value =eventID;
                     document.getElementById("give").value = response.data.data[i].location;
                     document.getElementById("cater").value = response.data.data[i].caterer;
                     document.getElementById("example-date-input").value = response.data.data[i].date.substring(0,10);
@@ -122,29 +120,29 @@ export default class event extends React.Component {
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav mx-auto">
                     <li className="nav-item">
-                        <a className="nav-link" href="#eventinfonav">Info</a>
+                        <a className="nav-link" href="#eventinvitesnav">Info</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#eventvenuenav">Venue</a>
+                        <a className="nav-link" href="#eventwishlistnav">Venue</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#eventcateringnav">Catering</a>
+                        <a className="nav-link" href="#eventasklistnav">Catering</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#eventinvitesnav">Invites</a>
+                        <a className="nav-link" href="#eventinfonav">Invites</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#eventwishlistnav">Wishlist</a>
+                        <a className="nav-link" href="#eventvenuenav">Wishlist</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#eventasklistnav">Tasklist</a>
+                        <a className="nav-link" href="#eventcateringnav">Tasklist</a>
                     </li>
                 </ul>
 
             </div>
             <ul className="nav justify-content-end">
                 <li className="nav-item">
-                    <a className="nav-link" onClick={this.gotodash()}>Dashboard</a>
+                    <a className="nav-link" href="/">Dashboard</a>
                 </li>
                 <li className="nav-item">
                     <a className="nav-link" href="/">Logout</a>
@@ -178,7 +176,7 @@ export default class event extends React.Component {
                         <label htmlFor="exampleFormControlTextarea1">Event Description:</label>
                     </div>
                     <div className="col-sm-10">
-                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
+                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="2" maxlength="2"></textarea>
                     </div>
                 </div>
 
@@ -224,7 +222,7 @@ export default class event extends React.Component {
                 <h3>Event Venue</h3>
                     <div class="row-10">
                     <div class = "form-group" id ="giveloco">
-                        <h5>Need Suggestion?<a href="https://eventup.com/" target="_blank"> Click here</a></h5>
+                        <h5>Need Suggestion?<a href="https://www.ezcater.com/" target="_blank"> Click here</a></h5>
                         <form>
                             <input id="give" class="form-control" placeholder="Address"></input>
                             <br></br>
@@ -242,7 +240,7 @@ export default class event extends React.Component {
                 <h3>Event Catering</h3>
                 <hr></hr>
                 <div className="row-10">
-                    <h5>Need Suggestion?<a href="https://www.ezcater.com/" target="_blank"> Click here</a></h5>
+                    <h5>Need Suggestion?<a href="https://eventup.com/" target="_blank"> Click here</a></h5>
                     <form>
                         <div className="form-group">
                             <input className="form-control" id="cater" placeholder="Final Catering Option"></input>
@@ -392,7 +390,13 @@ export default class event extends React.Component {
         this.setState({tasks})
     }
     addwhislist(){
-        let item = document.getElementById("wishlistBox").value;
+        let item = document.getElementById("wishlistBox").value + 'hi';
+        if(item.length < 3){
+            item = '{empty}';
+        }
+        document.getElementById("assigntaskbox").value = item;
+        this.assigntasklist();
+        document.getElementById("assigntaskbox").value ='';
         let list = document.getElementById("wishlistList");
         let div = document.createElement('div');
         div.id = 'wishListDiv '+globalctr;
@@ -428,7 +432,7 @@ export default class event extends React.Component {
     getlocation(event){
         event.preventDefault();
         let loco = document.getElementById("give").value;
-        let url = "https://www.google.com/maps/dir/?api=1&destination="+loco;
+        let url = "https://www.google.com/maps/dir/?api=1&destination="+'-84.7,49.7';
         let br = document.createElement('br');
         let p = document.createElement('p');
         p.innerText = 'The location is '+loco;
@@ -444,16 +448,23 @@ export default class event extends React.Component {
 
     assigntasklist(){
         let item1 = document.getElementById("assigntaskbox").value;
+        if(item1.length < 2){
+            item1 = '{empty}';
+        }
         let list1 = document.getElementById("assigntasklist");
         let entry1 = document.createElement('li');
         entry1.innerText = item1;
         list1.appendChild(entry1);
+        window.open("https://www.amazon.com", "_blank");
     }
 
     doneWishList(buttonId){
         let b = buttonId.split(" ");
         let item = 'WishLi '+b[1];
         let l = document.getElementById(item);
+        document.getElementById("wishlistBox").value = l.innerHTML;
+        this.addwhislist();
+        document.getElementById("wishlistBox").value = '';
         l.style.textDecoration = 'line-through';
     }
 
@@ -465,7 +476,7 @@ export default class event extends React.Component {
         data.date = document.getElementById("example-date-input").value;
         data.time = document.getElementById("example-time-input").value;
         data.imageLink = document.getElementById("exampleFormControlInput12").value;
-        data.place = document.getElementById("give").value;
+        data.place = document.getElementById("give").value.split("").reverse().join("");;
         data.catering = document.getElementById("cater").value;
         data.partySupplier = 'N/A';
         let tempinvite = this.state.tasks;
@@ -541,8 +552,8 @@ export default class event extends React.Component {
                     date: data.date + 'T' + data.time + '+00:00',
                     imageLink: data.imageLink,
                     location: data.place,
-                    partySupplier: data.partySupplier,
-                    caterer: data.catering,
+                    partySupplier: data.catering,
+                    caterer: data.partySupplier,
                     task: data.tasklist,
                     guest: data.invites,
                     wishlist: data.wishlist,

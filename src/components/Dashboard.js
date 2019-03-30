@@ -32,10 +32,13 @@ export default class Dashboard extends Component {
 
        axios.get('https://fiesta-api.herokuapp.com/event/get_event?token=' + token)
                 .then(function (response1) {
+                    arr = [];
+
                     if(response1.data.data.length == 0){
+                        arr.push(new Date('1999-01-08'));
                         self.setState({loading: false});
                     }
-                    arr = [];
+
                     for(let i=0; i < response1.data.data.length && i < 2; i++ ){
                         arr.push(new Date(response1.data.data[i].date.substring(0,10)));
                     }
@@ -69,7 +72,7 @@ export default class Dashboard extends Component {
                     <h6 id='email'>Email</h6>
                     <input type="button" className="btn btn-secondary" value="Edit Profile" onClick={() => this.openModal()} />
                     <hr></hr>
-                    <a value="Logout" className="btn btn-danger" href="/">Logout</a>
+                    <input type="button" className="btn btn-secondary" value="Log out" onClick={() => this.openModal()} />
 
               </div>
                 <div className="col-sm-8 col-md-8 col-lg-8">
