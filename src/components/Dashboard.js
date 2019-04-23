@@ -39,12 +39,12 @@ export default class Dashboard extends Component {
                     for(let i=0; i < response1.data.data.length && i < 2; i++ ){
                         arr.push(new Date(response1.data.data[i].date.substring(0,10)));
                     }
-                    self.setState({ date: arr, loading: false, data: response1.data.data});
+                    self.setState({ date: arr, loading: false, date: new Date()});
                 })
                 .catch(function (error1) {
                     console.log(error1);
-                    alert("Error: Dashboard problem in getting user event data please login again.");
-                    window.location.replace("/login");
+                    //alert("Error: Dashboard problem in getting user event data please login again.");
+                    //window.location.replace("/login");
                 });
     }
     closeModal() {
@@ -148,7 +148,7 @@ export default class Dashboard extends Component {
         })
         .catch(function (error) {
             console.log(error);
-            alert("Error: Dashboard problem in getting user data please login again. ");
+            alert("Error: Dashboard problem in getting user data please login again. 1");
             window.location.replace("/login");
         });
     }
